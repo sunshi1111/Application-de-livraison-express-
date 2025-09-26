@@ -48,3 +48,7 @@ Le système mettra automatiquement à jour l’itinéraire du colis.
 | **Livreurs**                 | Exécutent les livraisons, mettent à jour l’état des colis                   |
 | **Service client**           | Reçoit les demandes de modification des clients et les transmet au système |
 | **Administrateur système**   | Surveille les centres de tri, assure le bon fonctionnement du système      |
+
+## Risques
+À ce stade, le principal risque du projet est de savoir si la conception de la structure de la base de données peut couvrir tous les besoins réels de l’entreprise. Si la conception n’est pas parfaite, l’extension fonctionnelle ultérieure et l’interrogation des données seront limitées, ce qui affectera la flexibilité et la maintenabilité du système. Dans le même temps, la cohérence et l’intégrité des données sont également des points de risque importants, et des associations complexes entre plusieurs tables peuvent facilement entraîner une perte ou une incohérence de données sans contraintes raisonnables ni mécanismes de transaction. De plus, à mesure que la quantité de données continue d’augmenter, les performances du système peuvent devenir des goulots d’étranglement, en particulier dans les scénarios de fonctionnement à haute fréquence tels que les enregistrements historiques et le suivi en temps réel, de sorte que les plans d’optimisation doivent être envisagés à l’avance.
+
