@@ -34,6 +34,10 @@ Les relations entre les données au sein du système sont relativement simples e
 
 Une fois le système opérationnel, les nouveaux colis se voient automatiquement attribuer des itinéraires et sont acheminés entre les stations comme prévu, mettant simultanément à jour les informations de localisation et l'historique. En cas de problème et d'ajustements nécessaires, les demandes de modification et les enregistrements d'événements correspondants déclenchent un réacheminement afin que le colis atteigne sa destination. Cela complète le cycle de gestion des colis et répond aux besoins opérationnels quotidiens des entreprises de livraison express.
 
+## Risques
+À ce stade, le principal risque du projet est de savoir si la conception de la structure de la base de données peut couvrir tous les besoins réels de l’entreprise. Si la conception n’est pas parfaite, l’extension fonctionnelle ultérieure et l’interrogation des données seront limitées, ce qui affectera la flexibilité et la maintenabilité du système. Dans le même temps, la cohérence et l’intégrité des données sont également des points de risque importants, et des associations complexes entre plusieurs tables peuvent facilement entraîner une perte ou une incohérence de données sans contraintes raisonnables ni mécanismes de transaction. De plus, à mesure que la quantité de données continue d’augmenter, les performances du système peuvent devenir des goulots d’étranglement, en particulier dans les scénarios de fonctionnement à haute fréquence tels que les enregistrements historiques et le suivi en temps réel, de sorte que les plans d’optimisation doivent être envisagés à l’avance.
+
+
 ## Prochaines Étapes
 
 Après cela, nous avons créé un projet Jira et enregistré la progression du projet.

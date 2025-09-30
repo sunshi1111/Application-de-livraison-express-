@@ -48,3 +48,7 @@ Le système mettra automatiquement à jour l’itinéraire du colis.
 | **Livreurs**                 | Exécutent les livraisons, mettent à jour l’état des colis                   |
 | **Service client**           | Reçoit les demandes de modification des clients et les transmet au système |
 | **Administrateur système**   | Surveille les centres de tri, assure le bon fonctionnement du système      |
+
+
+
+
