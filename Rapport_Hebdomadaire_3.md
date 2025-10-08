@@ -1,4 +1,4 @@
-Rapport d'équipe hebdomadaire
+# Rapport de travail hebdomadaire 3 
 
 I. Avancement général de l'équipe cette semaine
 Cette semaine, l'équipe a continué de progresser dans la configuration de l'environnement de simulation et la préparation des données. Sun Shi, membre de l'équipe, a finalisé et livré le module fonctionnel main.py, fournissant les données et interfaces de base pour les stratégies de simulation et d'ordonnancement. Zhang Tianyi, membre de l'équipe, a travaillé sur l'intégration des interfaces et la préparation des tests préliminaires pour ce module.
