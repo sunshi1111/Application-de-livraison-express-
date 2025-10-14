@@ -1,4 +1,4 @@
-# Rapport de travail hebdomadaire 3 
+# Rapport de travail hebdomadaire 4 
 ## Bilan hebdomadaire de l'équipe
 
 Cette semaine, l'équipe a poursuivi le développement du module de simulation et de validation des fonctionnalités. Le membre Sun Shi a intégré et amélioré le contenu de `main.py` basé sur le travail antérieur, en veillant à la génération et à la cohérence des données. Le membre Zhang Tianyi a effectué des tests d'interface et préparé des optimisations initiales.
