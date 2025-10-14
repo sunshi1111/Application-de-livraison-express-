@@ -1,0 +1,26 @@
+# Rapport de travail hebdomadaire 3 
+## Bilan hebdomadaire de l'équipe
+
+Cette semaine, l'équipe a poursuivi le développement du module de simulation et de validation des fonctionnalités. Le membre Sun Shi a intégré et amélioré le contenu de `main.py` basé sur le travail antérieur, en veillant à la génération et à la cohérence des données. Le membre Zhang Tianyi a effectué des tests d'interface et préparé des optimisations initiales.
+
+## Contributions de la semaine
+### Génération et traitement des données
+- **Fonction data_gen()** : Responsable de la génération de toutes les données de base nécessaires pour la simulation, y compris les stations, les centres, les arêtes et les paquets. Les positions sont générées aléatoirement et les distances Euclidiennes sont calculées pour construire les matrices de coût.
+- **Stratégies de génération des paquets** : Implémentation d'une sélection source/ destination basée sur une distribution probabiliste, prenant en charge deux priorités: Regular et Express. Les paquets sont ordonnés par leur temps de création afin d'assurer la cohérence temporelle de la simulation.
+- **Construction des matrices de coût** : Création de la matrice de coût monétaire (M) et de la matrice de coût temporel (N). La taille des matrices est 2*(center_num + station_num) et sert aux calculs de routes et aux décisions d'ordonnancement.
+
+### Réalisation des composants de la simulation
+- **Classe Package** : Définit les attributs de base d'un paquet, y compris l'ID, le nœud source/destination, la priorité et l'heure de création.
+- **Classe Node** : Représente un nœud dans le réseau, avec gestion des routes et mise à jour d'état.
+- **Classe Route** : Implémente une file de priorité basée sur un tas (heap) pour accélérer les algorithmes de recherche de chemin.
+- **Fonction get_next_node()** : Fonction d'aide utilisée pour obtenir le prochain nœud lors du calcul d'itinéraires.
+
+### Environnement et boucle d'entraînement
+- **Classe LogisticsEnv** : Environnement de simulation central, responsable de la gestion des nœuds et des routes, du calcul des itinéraires (incluant find_shortest_time_path et find_lowest_cost_path), de la mise à jour des distances dynamiques (update_distance()) et de l'interface avec l'agent d'apprentissage renforcé.
+- **Classe Agent** : Agent d'apprentissage par renforcement, incluant la boucle d'entraînement et la prise en charge d'entraînements multi-épisodes.
+- **Sorties du script** : Le script imprime les structures clés (stations, centers, edges, packets, M, N) pour faciliter le débogage et la validation.
+
+## Validation et impacts
+- **Validation fonctionnelle** : Le script `main.py` s'exécute avec succès et produit la génération complète des données, l'initialisation de l'environnement et l'étape de simulation. Les sorties contiennent toutes les structures et matrices nécessaires.
+- **Tests d'intégration** : L'environnement simulateur charge correctement les données, effectue le routage des paquets, le calcul d'itinéraire et le calcul des récompenses.
+- **Impact sur l'équipe** : Le module est pleinement intégré à l'environnement et les autres membres peuvent s'appuyer sur celui-ci pour développer des politiques de routage et optimiser les algorithmes. Cela améliore la complétude et la réplicabilité des expériences.
