@@ -1,18 +1,16 @@
-# Auto-évaluation - Semaine 1
+##  Travaux réalisés
+Cette semaine, j’ai participé activement à la définition du sujet du projet, consacré à la planification des itinéraires pour les livraisons express.  
+J’ai contribué à la rédaction du document de fonctionnalités, en précisant les principaux modules et cas d’utilisation.  
+J’ai également pris part à la conception initiale de l’architecture, en esquissant la séparation entre le front-end et le back-end et en identifiant les interactions entre ces deux parties.  
+Enfin, j’ai commencé à réfléchir aux besoins de données nécessaires pour la phase suivante, notamment la structure de la base de données.  
 
-## Travaux réalisés
-- Conception de l’architecture de la base de données pour l’application de gestion de livraisons.
-- Identification des entités principales, soit clients, colis, stations, trajets, utilisateurs.
-- Définition des relations (clés primaires et étrangères) entre les tables pour assurer la cohérence des données.
-- Création d’un diagramme UML de la base de données à l’aide de Figma.
-- Export et sauvegarde du diagramme pour l’intégration future dans la documentation du projet.
 
-## Compétences mobilisées
-- Modélisation des données.
-- Utilisation de Figma pour la conception de diagrammes techniques.
-- Analyse des besoins fonctionnels pour les traduire en structure de base de données.
+##  Difficultés rencontrées
+La difficulté principale a été de définir clairement la portée du projet et d’évaluer la faisabilité technique des idées initiales.  
+Il a également fallu harmoniser les propositions de chacun afin de construire une vision cohérente de l’application.  
 
-## Objectifs pour la semaine prochaine
-- Mettre en place un environnement de développement basé sur Docker afin de faciliter le déploiement et la reproductibilité du projet.
-- Sélectionner les frameworks pour le développement backend et frontend en fonction des besoins du projet.
-- Préparer une première configuration de base permettant à l’équipe de commencer l’implémentation.
+
+##  Objectifs pour la semaine prochaine
+- Concevoir la structure de la base de données (entités, relations).  
+- Étudier les options de gestion des données et de performance.  
+- Commencer la documentation technique de la partie back-end.  
