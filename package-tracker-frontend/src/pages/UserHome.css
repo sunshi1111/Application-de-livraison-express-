@@ -1,0 +1,24 @@
+.u-home { min-height: 100vh; background:#f5f7fb; display:flex; flex-direction:column; }
+.u-header { display:flex; align-items:center; justify-content:space-between; padding:16px 24px; background:#fff; border-bottom:1px solid #eef0f4; }
+.u-header .brand { display:flex; align-items:center; gap:12px; }
+.u-header .logo { font-size:24px; }
+.u-header .title h1 { margin:0; font-size:18px; color:#111827; }
+.u-header .title span { font-size:12px; color:#6b7280; }
+.u-header .actions { display:flex; gap:8px; align-items:center; }
+.user-chip { display:flex; align-items:center; background:#f3f4f6; padding:6px 10px; border-radius:999px; gap:8px; }
+.user-chip .avatar { width:24px; height:24px; border-radius:50%; background:#0ea5e9; color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; }
+.user-chip .name { color:#374151; font-weight:600; }
+.btn { padding:8px 12px; border:1px solid #e5e7eb; border-radius:8px; background:#fff; cursor:pointer; }
+.btn:hover { background:#f9fafb; }
+.btn-danger { border-color:#fecaca; color:#b91c1c; }
+.btn-danger:hover { background:#fef2f2; }
+
+.u-main { padding:24px; }
+.u-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:16px; }
+.u-card { background:#fff; border:1px solid #eef0f4; border-radius:12px; padding:16px; display:flex; flex-direction:column; gap:10px; box-shadow: 0 4px 16px rgba(0,0,0,0.05); }
+.u-card .icon { font-size:28px; }
+.u-card h3 { margin:0; color:#111827; }
+.u-card p { margin:0; color:#6b7280; min-height:40px; }
+.u-card .btn { align-self:flex-start; margin-top:4px; }
+
+@media (max-width: 480px) { .u-header { padding:12px; } .u-main { padding:12px; } }

@@ -1,0 +1,397 @@
+/* App 主样式（中性配色，更贴近大厂产品） */
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: transparent;
+}
+
+/* 顶部标题区域 */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  border-bottom: 1px solid #eef0f4;
+  box-shadow: 0 8px 28px rgba(16,24,40,0.04);
+}
+
+.app-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.app-header .brand .logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 8px 24px rgba(34,197,94,0.35);
+}
+
+.app-header .brand .title {
+  display: flex;
+  flex-direction: column;
+}
+.app-header .brand .title h1 { margin: 0; font-size: 1.2rem; }
+.app-header .brand .title span { color: #6b7280; font-size: 0.85rem; }
+
+.header-controls { display: flex; align-items: center; gap: 10px; }
+
+.backend-status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f3f4f6;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-dot.connected {
+  background-color: #48bb78;
+  box-shadow: 0 0 0 0 rgba(72, 187, 120, 0.7);
+}
+
+.status-dot.disconnected {
+  background-color: #f56565;
+  box-shadow: 0 0 0 0 rgba(245, 101, 101, 0.7);
+}
+
+.status-text { color: #374151; font-size: 0.85rem; font-weight: 600; }
+
+.regenerate-btn { padding: 8px 12px; border-radius: 10px; }
+.user-chip { display:flex; align-items:center; gap:8px; padding:6px 10px; background:#f9fafb; border:1px solid #e5e7eb; border-radius: 999px; }
+.user-chip .avatar { width: 22px; height: 22px; border-radius:50%; background:#e5f9ee; color:#16a34a; display:flex; align-items:center; justify-content:center; font-size:12px; font-weight:800; }
+.user-chip .name { font-size: 0.85rem; color:#374151; font-weight:600; }
+
+/* 主内容区域 */
+.app-main { flex: 1; padding: 16px 20px 40px; }
+
+.app-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.visualization-card { padding: 0; overflow: hidden; min-height: 700px; }
+
+/* 统计卡片 */
+.stats-card { background:#fff; border-radius:12px; padding:24px; box-shadow: 0 8px 28px rgba(16,24,40,0.06); border:1px solid #eef0f4; }
+
+.stats-card h3 {
+  color: #2d3748;
+  margin-bottom: 20px;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.stat-item { text-align:center; padding:16px; background:#f9fafb; border-radius:10px; border:1px solid #eef0f4; transition: transform 0.2s ease; }
+.stat-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(16,24,40,0.06); }
+
+.stat-number { display:block; font-size: 2rem; font-weight: 700; color: #22c55e; margin-bottom: 4px; }
+
+.package-types { background: #f7fafc; border-radius: 8px; padding: 16px; border-left: 4px solid #667eea; }
+
+.package-types h4 {
+  color: #2d3748;
+  margin-bottom: 12px;
+  font-size: 1rem;
+}
+
+.type-distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.type-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: white;
+  border-radius: 4px;
+  border: 1px solid #e2e8f0;
+}
+
+.type-label {
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.type-count {
+  font-weight: 600;
+  color: #667eea;
+  background: #edf2f7;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+}
+
+/* 加载状态 */
+.app-loading, .app-error {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.loading-container, .error-container {
+  text-align: center;
+  background: white;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  max-width: 500px;
+  width: 90%;
+}
+
+.error-details {
+  text-align: left;
+  margin: 20px 0;
+}
+
+.backend-help {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+  border-left: 4px solid #4299e1;
+}
+
+.backend-help h3 {
+  color: #2d3748;
+  margin-bottom: 12px;
+  font-size: 1.1rem;
+}
+
+.backend-help ol {
+  padding-left: 20px;
+  color: #4a5568;
+}
+
+.backend-help code {
+  background: #e2e8f0;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', monospace;
+  color: #2d3748;
+}
+
+.error-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.backend-status {
+  background: #fed7d7;
+  border-radius: 8px;
+  padding: 12px;
+  margin-top: 16px;
+  border-left: 4px solid #f56565;
+}
+
+.loading-container h2, .error-container h2 {
+  color: #2d3748;
+  margin-bottom: 16px;
+  font-size: 1.5rem;
+}
+
+.loading-container p {
+  color: #4a5568;
+  margin-bottom: 0;
+}
+
+.loading-container .spinner {
+  margin: 0 auto 20px;
+}
+
+/* 底部版权 */
+.app-footer { background: transparent; color:#6b7280; text-align:center; padding: 20px; font-size: 0.9rem; }
+
+/* 响应式设计 */
+@media (max-width: 1200px) {
+  .app-layout {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .regenerate-btn {
+    position: static;
+    margin-top: 10px;
+    align-self: center;
+  }
+  
+  .app-header {
+    padding: 30px 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-header h1 {
+    font-size: 2.2rem;
+  }
+  
+  .app-header p {
+    font-size: 1rem;
+  }
+  
+  .app-main {
+    padding: 0 15px 30px;
+  }
+  
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+  
+  .visualization-card {
+    min-height: 500px;
+  }
+  
+  .loading-container, .error-container {
+    padding: 30px 20px;
+  }
+  
+  .loading-container h2, .error-container h2 {
+    font-size: 1.3rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-header {
+    padding: 20px 15px;
+  }
+  
+  .app-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .app-header p {
+    font-size: 0.9rem;
+  }
+  
+  .app-main {
+    padding: 0 10px 20px;
+  }
+  
+  .container {
+    padding: 10px;
+  }
+  
+  .stats-card {
+    padding: 20px;
+  }
+  
+  .stat-item {
+    padding: 12px;
+  }
+  
+  .stat-number {
+    font-size: 1.6rem;
+  }
+  
+  .visualization-card {
+    min-height: 400px;
+  }
+}
+
+/* 滚动条样式 */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+/* 动画效果 */
+.card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 聚焦状态 */
+.card:focus-within {
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.15);
+  transform: translateY(-2px);
+  transition: all 0.3s ease;
+}
+
+/* 高对比度模式支持 */
+@media (prefers-contrast: high) {
+  .app-header {
+    background: #000;
+  }
+  
+  .card {
+    border: 2px solid #333;
+  }
+  
+  .stat-item {
+    border: 2px solid #333;
+  }
+}
