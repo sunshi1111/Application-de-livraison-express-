@@ -1,29 +1,25 @@
-"""
-基于test.ipynb的路径计算逻辑 - Bellman-Ford算法实现
-作者: 孙石，朱虹翱
-"""
+
 
 import numpy as np
 from typing import List, Dict, Any, Optional, Tuple
 from data_generator import parameters
 
 class PathCalculator:
+    """路径计算器（Bellman-Ford + 结果缓存）
+
+    当前问题：在获取大量包裹（如 1000 条）时，每个包裹都会重复运行 Bellman-Ford 三重循环，
+    时间复杂度 O(P * N^3)。N=节点数(约60)，P=包裹数(1000) 时会导致前端 10s 超时。此类路径是按 src/dst/category 重复的，
+    因此加入缓存显著降低重复计算。
     """
-    路径计算器，实现基于test.ipynb的Bellman-Ford算法
-    """
-    
+
     def __init__(self, time_cost_matrix: np.ndarray, money_cost_matrix: np.ndarray):
-        """
-        初始化路径计算器
-        
-        Args:
-            time_cost_matrix: 时间成本矩阵
-            money_cost_matrix: 金钱成本矩阵
-        """
+        """初始化路径计算器并建立缓存"""
         self.timecost = time_cost_matrix
         self.moneycost = money_cost_matrix
         self.timecost_initial = time_cost_matrix.copy()
         self.moneycost_initial = money_cost_matrix.copy()
+        # 缓存: key=(src,dst,category) value=路径结果字典
+        self._cache: Dict[tuple, Dict[str, Any]] = {}
     
     def _node_to_index(self, node_id: str) -> int:
         """
@@ -242,43 +238,44 @@ class PathCalculator:
         }
     
     def calculate_optimal_path(self, packet: Dict[str, Any]) -> Dict[str, Any]:
-        """
-        为包裹计算最优路径
-        
-        Args:
-            packet: 包裹信息字典
-            
-        Returns:
-            包含路径和成本信息的字典
-        """
+        """为包裹计算最优路径（带缓存）"""
         src = packet["src"]
         dst = packet["dst"]
         category = packet["category"]
-        
+
+        key = (src, dst, int(category))
+        cached = self._cache.get(key)
+        if cached is not None:
+            return cached
+
+        # 根据类别选择优化目标
         if category == 1:  # 快递包裹 - 最短时间路径
             path = self.find_shortest_time_path(src, dst)
-            total_cost, path_info = self.calculate_path_cost(path, "time")
             cost_type = "time"
-        else:  # 标准包裹 - 最低成本路径
+        else:              # 标准包裹 - 最低金钱成本路径
             path = self.find_lowest_cost_path(src, dst)
-            total_cost, path_info = self.calculate_path_cost(path, "money")
             cost_type = "money"
-        
-        # 同时计算另一种成本作为参考
+
+        # 一次性计算两种成本，避免重复调用
         time_cost, time_info = self.calculate_path_cost(path, "time")
         money_cost, money_info = self.calculate_path_cost(path, "money")
-        
-        return {
+        total_cost = time_cost if cost_type == "time" else money_cost
+
+        result = {
             "path": path,
             "totalCost": total_cost,
             "costType": cost_type,
             "pathInfo": {
-                "segments": path_info["segments"],
+                "segments": (time_info["segments"] if cost_type == "time" else money_info["segments"]),
                 "totalTime": float(time_cost),
                 "totalMoney": float(money_cost),
-                "optimizedFor": cost_type
-            }
+                "optimizedFor": cost_type,
+            },
         }
+
+        # 写入缓存
+        self._cache[key] = result
+        return result
     
     def update_dynamic_costs(self, route_loads: Dict[str, int]):
         """

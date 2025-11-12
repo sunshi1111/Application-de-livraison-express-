@@ -90,6 +90,17 @@ class PackageUpdateRequest(BaseModel):
     newStatus: Optional[str] = None
     addHistory: Optional[HistoryEvent] = None
 
+class PackageScheduleRequest(BaseModel):
+    """新建/计划包裹请求 (sendTime 作为仿真时间 createTime 小时浮点)"""
+    src: str
+    dst: str
+    category: int = 0  # 0 标准 1 快递
+    sendTime: float = 0.0  # 仿真时间(小时), 默认为0
+
+class PackageBatchRequest(BaseModel):
+    """批量查询包裹请求"""
+    ids: List[str]
+
 class SystemStats(BaseModel):
     """系统统计信息"""
     totalStations: int

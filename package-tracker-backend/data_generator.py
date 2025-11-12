@@ -13,7 +13,7 @@ from typing import List, Dict, Tuple, Any
 parameters = {
     "station_num": 25,
     "center_num": 5,
-    "packet_num": 10,
+    "packet_num": 100,
 }
 
 def data_gen() -> Dict[str, Any]:
@@ -250,7 +250,7 @@ def format_data_for_api(data: Dict[str, Any]) -> Dict[str, Any]:
             "history": [{
                 "timestamp": float(create_time),
                 "location": src,
-                "action": "包裹已创建"
+                "action": "Paquet cree"
             }]
         })
 

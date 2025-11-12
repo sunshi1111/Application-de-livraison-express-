@@ -1,50 +1,88 @@
 @echo off
-echo 包裹追踪系统后端服务器启动脚本
-echo ================================
+setlocal
 
-:: 检查Python环境
-python --version >nul 2>&1
+REM Simple and robust backend starter (ASCII-only)
+REM - Uses venv\Scripts\python.exe directly
+REM - Creates venv if missing
+REM - Installs requirements if FastAPI missing
+REM - Forces UTF-8 to avoid console encoding issues
+
+pushd "%~dp0"
+
+echo ===============================
+echo Package Tracker Backend Starter
+echo ===============================
+
+where python >nul 2>&1
 if errorlevel 1 (
-    echo 错误: 未检测到Python环境，请先安装Python 3.8+
+    echo ERROR: Python not found. Please install Python 3.8+ and add to PATH.
     pause
     exit /b 1
 )
 
-:: 检查是否存在虚拟环境
 if not exist "venv" (
-    echo 创建Python虚拟环境...
-    python -m venv venv
+    echo Creating virtual environment...
+    set "SYS_PY=C:\Users\35504\AppData\Local\Programs\Python\Python313\python.exe"
+    if exist "%SYS_PY%" (
+        "%SYS_PY%" -m venv venv
+    ) else (
+        python -m venv venv
+    )
     if errorlevel 1 (
-        echo 虚拟环境创建失败
+        echo ERROR: Failed to create venv.
         pause
         exit /b 1
     )
 )
 
-:: 激活虚拟环境
-echo 激活虚拟环境...
-call venv\Scripts\activate.bat
+set "PY_EXE=%CD%\venv\Scripts\python.exe"
+if not exist "%PY_EXE%" (
+    echo ERROR: venv Python not found: %PY_EXE%
+    echo Try deleting the venv folder and rerun this script.
+    pause
+    exit /b 1
+)
 
-:: 检查是否需要安装依赖
-if not exist "venv\Lib\site-packages\fastapi" (
-    echo 安装Python依赖包...
-    pip install -r requirements.txt
+REM Validate venv python; if broken, recreate venv
+"%PY_EXE%" -V >nul 2>&1
+if errorlevel 1 (
+    echo Detected broken venv. Recreating...
+    rmdir /s /q venv
+    set "SYS_PY=C:\Users\35504\AppData\Local\Programs\Python\Python313\python.exe"
+    if exist "%SYS_PY%" (
+        "%SYS_PY%" -m venv venv
+    ) else (
+        python -m venv venv
+    )
     if errorlevel 1 (
-        echo 依赖安装失败
+        echo ERROR: Failed to recreate venv.
         pause
         exit /b 1
     )
-    echo 依赖安装完成！
+    set "PY_EXE=%CD%\venv\Scripts\python.exe"
 )
 
-echo.
-echo 🚀 启动FastAPI服务器...
-echo 📍 API文档: http://localhost:8000/docs
-echo 🔄 交互文档: http://localhost:8000/redoc
-echo 💡 按 Ctrl+C 停止服务器
-echo.
+"%PY_EXE%" -m pip --version >nul 2>&1 || "%PY_EXE%" -m ensurepip --upgrade
+REM Ensure required deps installed (fastapi AND sqlalchemy at minimum)
+"%PY_EXE%" -m pip show fastapi >nul 2>&1
+set HAVE_FASTAPI=%ERRORLEVEL%
+"%PY_EXE%" -m pip show sqlalchemy >nul 2>&1
+set HAVE_SQLA=%ERRORLEVEL%
+if not "%HAVE_FASTAPI%"=="0" ( set NEED_INSTALL=1 )
+if not "%HAVE_SQLA%"=="0" ( set NEED_INSTALL=1 )
+if defined NEED_INSTALL (
+    echo Installing/Updating Python dependencies from requirements.txt ...
+    "%PY_EXE%" -m pip install -r "%CD%\requirements.txt"
+    if errorlevel 1 (
+        echo ERROR: Failed to install dependencies.
+        pause
+        exit /b 1
+    )
+)
 
-:: 启动服务器
-python main.py
+set PYTHONUTF8=1
+echo Starting FastAPI server at http://localhost:8000 ...
+"%PY_EXE%" "%CD%\main.py"
 
+popd
 pause
