@@ -1,0 +1,129 @@
+/* 路径可视化组件样式（真实道路与图标风格） */
+.path-visualization {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  min-height: 520px;
+}
+
+.visualization-controls {
+  background: #fff;
+  border-radius: 10px;
+  padding: 16px 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.visualization-controls h3 {
+  color: #111827;
+  margin: 0 0 12px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.controls { margin-bottom: 12px; }
+.checkbox-label { display:flex; align-items:center; gap:8px; font-size: 0.9rem; color:#4b5563; cursor: pointer; }
+.checkbox-label input[type="checkbox"] { transform: scale(1.2); }
+
+.package-info, .path-info {
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+  border-left: 4px solid #22c55e;
+}
+.package-info h4, .path-info h4 { color:#111827; margin-bottom: 10px; font-size: 1rem; }
+.package-info p, .path-info p { margin: 4px 0; color:#4b5563; font-size: 0.9rem; }
+
+.path-segments { margin-top: 10px; }
+.path-segments h5 { color:#111827; margin-bottom: 6px; font-size: 0.9rem; }
+.segment { background:#fff; padding:6px 10px; margin:4px 0; border-radius:6px; font-size: 0.85rem; color:#374151; border:1px solid #eef0f4; }
+
+/* 图例样式 */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: #fff;
+  border-radius: 10px;
+  padding: 10px 12px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+  align-items: center;
+}
+.legend-item { display:flex; align-items:center; gap:8px; font-size: 0.85rem; color:#4b5563; }
+.legend-line { width: 28px; height: 4px; border-radius: 999px; }
+.airline-line { background: #60a5fa; opacity: 0.8; }
+.highway-line { background: linear-gradient(90deg, #94a3b8 40%, #facc15 40% 60%, #94a3b8 60%); }
+.road-line { background: linear-gradient(90deg, #bfc7d1 40%, #ffffff 40% 60%, #bfc7d1 60%); }
+.path-line { background: #22c55e; }
+
+/* SVG 容器样式 */
+.visualization-wrapper { position: relative; width: 100%; height: 100%; }
+.visualization-svg {
+  background: radial-gradient(circle at 50% 50%, #ffffff 0%, #f9fafb 80%);
+  border-radius: 10px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e5e7eb;
+  max-height: 60vh;
+}
+.zoom-control { display:flex; align-items:center; gap:8px; margin-left:12px; }
+.zoom-control input[type=range] { cursor:pointer; }
+
+@media (min-width: 1200px) {
+  .visualization-svg { max-height: 68vh; }
+}
+
+@media (max-width: 900px) {
+  .visualization-svg { max-height: 50vh; }
+}
+
+/* SVG 内部样式 */
+.visualization-svg .grid line { stroke: #e5e7eb; stroke-opacity: 0.35; shape-rendering: crispEdges; }
+.visualization-svg .grid path { stroke-width: 0; }
+
+/* 道路风格 */
+.visualization-svg .edge { transition: opacity 0.3s ease; }
+.visualization-svg .edge:hover { opacity: 1 !important; }
+.visualization-svg .edge-road-base { stroke-linecap: round; }
+.visualization-svg .edge-road-center { stroke-linecap: round; }
+.visualization-svg .edge-highway-base { stroke-linecap: round; }
+.visualization-svg .edge-highway-center { stroke-linecap: round; }
+.visualization-svg .edge-airline { stroke-linecap: round; }
+
+/* 高亮路径 */
+.visualization-svg .path-segment { stroke-linecap: round; }
+
+/* 图标元素的微交互 */
+.visualization-svg .center { transition: all 0.2s ease; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.08)); }
+.visualization-svg .station { transition: all 0.2s ease; filter: drop-shadow(0 1px 2px rgba(0,0,0,0.08)); }
+
+.visualization-svg .center-label,
+.visualization-svg .station-label {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-weight: 600;
+  pointer-events: none;
+  fill: #374151;
+}
+
+/* 脉冲动画：用于起终点高亮圈 */
+@keyframes pulse {
+  0% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.08); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+  .path-visualization { gap: 15px; }
+  .visualization-controls { padding: 16px; }
+  .legend { padding: 10px 12px; gap: 12px; }
+  .visualization-svg { border-radius: 8px; }
+}
+
+@media (max-width: 480px) {
+  .legend { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .package-info h4, .path-info h4 { font-size: 0.95rem; }
+  .package-info p, .path-info p { font-size: 0.85rem; }
+}
